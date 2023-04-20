@@ -16,7 +16,7 @@ class Order
   end
 
   def cost
-    Utils.money_format(total)
+    Utils.money_format(total.to_i)
   end
 
   def add_product(product)
@@ -41,9 +41,17 @@ class Order
     end
   end
 
-#   .
-#   .
-#   .
-#   .
+  #   .
+  #   .
+  #   .
+  #   .
+
+  def apply_giftwrap_cost
+    @total *= 1.1
+  end
+
+  def apply_shipping_cost
+    @total += 5_000
+  end
 
 end
