@@ -1,39 +1,38 @@
-require './utils'
+require "./utils"
 
 class Order
-  attr_accessor :user, :products, :status, :total
-  VALID_STATUSES = ['pending', 'processing', 'shipped', 'completed', 'cancelled']
+  attr_accessor :user, :products, :status, :subtotal
+  VALID_STATUSES = %w[pending processing shipped completed cancelled]
 
   def initialize(user)
     @user = user
     @products = []
-    @status = 'pending'
+    @status = "pending"
     @total = 0
   end
 
-  def calculate_total
-    @total = @products.sum(&:price)
+  def calculate_subtotal
+    @subtotal = @products.sum(&:price)
   end
 
   def cost
-    Utils.money_format(total)
+    subtotal
   end
 
   def add_product(product)
     @products << product
-    calculate_total
+    calculate_subtotal
   end
 
   def remove_product(product)
     if @products.delete(product)
-      calculate_total
+      calculate_subtotal
     else
       puts "Product not found"
     end
   end
 
   def update_status(new_status)
-    
     if VALID_STATUSES.include?(new_status)
       @status = new_status
     else
@@ -41,9 +40,8 @@ class Order
     end
   end
 
-#   .
-#   .
-#   .
-#   .
-
+  #   .
+  #   .
+  #   .
+  #   .
 end
