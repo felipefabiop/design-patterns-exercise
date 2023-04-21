@@ -1,7 +1,7 @@
 require "./utils"
 
 class Order
-  attr_accessor :user, :products, :status, :subtotal
+  attr_accessor :user, :products, :status, :subtotal, :giftwraper, :shipping
   VALID_STATUSES = %w[pending processing shipped completed cancelled]
 
   def initialize(user)
@@ -9,6 +9,8 @@ class Order
     @products = []
     @status = "pending"
     @total = 0
+    @giftwraper = false
+    @shipping = false
   end
 
   def calculate_subtotal
@@ -16,7 +18,10 @@ class Order
   end
 
   def cost
-    subtotal
+    total = @subtotal
+    total *= 1.1 if @giftwraper
+    total += 5_000 if @shipping
+    total.to_i
   end
 
   def add_product(product)
@@ -44,4 +49,12 @@ class Order
   #   .
   #   .
   #   .
+
+  def apply_giftwraper
+    @giftwraper = true
+  end
+
+  def apply_shipping
+    @shipping = true
+  end
 end
