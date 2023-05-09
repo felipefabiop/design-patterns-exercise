@@ -1,7 +1,7 @@
 require "./utils"
 
 class Order
-  attr_accessor :user, :products, :status, :subtotal, :giftwraper, :shipping
+  attr_accessor :user, :products, :status, :subtotal, :giftwraper, :shipping, :shipping_method
   VALID_STATUSES = %w[pending processing shipped completed cancelled]
 
   def initialize(user)
@@ -11,6 +11,7 @@ class Order
     @total = 0
     @giftwraper = false
     @shipping = false
+    @shipping_method = nil
   end
 
   def calculate_subtotal
@@ -20,7 +21,7 @@ class Order
   def cost
     total = @subtotal
     total *= 1.1 if @giftwraper
-    total += 5_000 if @shipping
+    total += shipping_cost if @shipping
     total.to_i
   end
 
@@ -54,7 +55,21 @@ class Order
     @giftwraper = true
   end
 
-  def apply_shipping
+  def apply_shipping(shipping_method)
     @shipping = true
+    @shipping_method = shipping_method
+  end
+
+  def shipping_cost
+    case @shipping_method
+    when :standard
+      5_000
+    when :express
+      8_000
+    when :pickup
+      0
+    else
+      raise "shipping method not recognized"
+    end
   end
 end

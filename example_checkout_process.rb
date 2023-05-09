@@ -20,6 +20,6 @@ order.add_product(Product.new(name: "t-shirt", price: 10_000))
 order.add_product(Product.new(name: "shoes", price: 30_000))
 
 order.apply_giftwraper
-order.apply_shipping
+order.apply_shipping(:standard)
 
 puts "#{order.user.name} tu compra tiene un costo de #{Utils.money_format(order.cost)}"
