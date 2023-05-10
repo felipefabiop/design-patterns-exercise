@@ -1,4 +1,5 @@
 require "./utils"
+require "ostruct"
 
 class Order
   attr_accessor :user, :products, :status, :subtotal, :giftwraper, :shipping, :shipping_method
@@ -61,15 +62,17 @@ class Order
   end
 
   def shipping_cost
+    shipping_provider.delivery_cost
+  end
+
+  def shipping_provider
     case @shipping_method
     when :standard
-      correos = CorreosChile.new(self)
-      correos.delivery_cost
+      CorreosChile.new(self)
     when :express
-      blue = BlueExpress.new(self)
-      blue.delivery_cost
+      BlueExpress.new(self)
     when :pickup
-      0
+      OpenStruct.new(delivery_cost: 0)
     else
       raise "shipping method not recognized"
     end
