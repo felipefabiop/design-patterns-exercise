@@ -63,9 +63,11 @@ class Order
   def shipping_cost
     case @shipping_method
     when :standard
-      5_000
+      correos = CorreosChile.new(self)
+      correos.delivery_cost
     when :express
-      8_000
+      blue = BlueExpress.new(self)
+      blue.delivery_cost
     when :pickup
       0
     else
