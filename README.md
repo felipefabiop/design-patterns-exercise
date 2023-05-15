@@ -4,7 +4,7 @@ This code is an example of how to apply design patterns in an ecommerce applicat
 
 The codebase contains three exercises, each one tackling a different aspect of the Order class, which is one of the core classes in the application. The exercises cover topics such as calculating order costs, integrating different shipping methods, and implementing a notification system for free shipping. Each exercise includes a description of the problem, the requirements, and the expected behavior, as well as a possible solution using design patterns.
 
-By working through these exercises, you'll learn how to use some of the most common design patterns in object-oriented programming, such as Decorator, Strategy, and Observer. You'll also see how these patterns can be combined to solve more complex problems and how they can make your code more flexible, extensible, and maintainable over time.
+By working through these exercises, you'll learn how to use some of the most common design patterns in object-oriented programming. You'll also see how these patterns can be combined to solve more complex problems and how they can make your code more flexible, extensible, and maintainable over time.
 
 We hope you find this project useful and educational. Happy coding!
 
