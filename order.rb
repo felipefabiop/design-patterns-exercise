@@ -1,6 +1,9 @@
 require "./utils"
+require "observer"
 
 class Order
+  include Observable
+
   attr_accessor :user, :products, :status, :subtotal
   VALID_STATUSES = %w[pending processing shipped completed cancelled]
 
@@ -22,6 +25,10 @@ class Order
   def add_product(product)
     @products << product
     calculate_subtotal
+    
+    # Notify any observers that the order has changed
+    changed
+    notify_observers(@subtotal)
   end
 
   def remove_product(product)
