@@ -2,7 +2,7 @@ require "./utils"
 require "ostruct"
 
 class Order
-  attr_accessor :user, :products, :status, :subtotal, :giftwraper, :shipping, :shipping_method
+  attr_accessor :user, :products, :status, :subtotal, :giftwraper, :shipping, :shipping_method, :free_shipping
   VALID_STATUSES = %w[pending processing shipped completed cancelled]
 
   def initialize(user)
@@ -13,6 +13,7 @@ class Order
     @giftwraper = false
     @shipping = false
     @shipping_method = nil
+    @free_shipping = false
   end
 
   def calculate_subtotal
@@ -29,6 +30,7 @@ class Order
   def add_product(product)
     @products << product
     calculate_subtotal
+    check_for_free_shipping unless @free_shipping
   end
 
   def remove_product(product)
@@ -77,4 +79,12 @@ class Order
       raise "shipping method not recognized"
     end
   end
+
+  def check_for_free_shipping
+    if @subtotal > 30_000
+      @free_shipping = true
+      puts "¡Felicidades! Ha conseguido envío gratis para su pedido."
+    end
+  end
+
 end

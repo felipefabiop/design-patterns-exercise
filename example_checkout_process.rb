@@ -18,6 +18,7 @@ order = Order.new(user)
 
 order.add_product(Product.new(name: "t-shirt", price: 10_000))
 order.add_product(Product.new(name: "shoes", price: 30_000))
+# order.add_product(Product.new(name: "tea cup", price: 4_000))
 
 order.apply_giftwraper
 order.apply_shipping(:standard)
